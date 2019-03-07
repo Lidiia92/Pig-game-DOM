@@ -27,6 +27,17 @@ document.getElementById('current-0').textContent = '0';
 document.getElementById('current-1').textContent = '0';
 
 
+function nextPlayer () {
+    //next player
+    document.getElementById(`current-0`).textContent = '0';
+    document.getElementById(`current-1`).textContent = '0';
+    document.querySelector(`.player-${activePlayer}-panel`).classList.remove('active');
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+    roundScore = 0;
+    document.querySelector(`.player-${activePlayer}-panel`).classList.add('active');
+    diceImg.style.display = 'none';
+}
+
 //Rolling the dice functionality
 
 const rollDiceButton = document.querySelector('.btn-roll');
@@ -46,15 +57,23 @@ rollDiceButton.addEventListener('click', function() {
         const currentScore = document.querySelector(`#current-${activePlayer}`);
         currentScore.textContent = roundScore;
     } else {
-        //next player
-        document.getElementById(`current-0`).textContent = '0';
-        document.getElementById(`current-1`).textContent = '0';
-        document.querySelector(`.player-${activePlayer}-panel`).classList.remove('active');
-        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-        roundScore = 0;
-        document.querySelector(`.player-${activePlayer}-panel`).classList.add('active');
-        diceImg.style.display = 'none';
+        nextPlayer();
 
     }
+});
+
+
+//Holding the score functioanlity 
+
+document.querySelector('.btn-hold').addEventListener('click', function(){
+    //Add CURRENT score to global score
+
+    scores[activePlayer] += roundScore;
+
+    //Update the UI
+    document.querySelector(`#score-${activePlayer}`).textContent = scores[activePlayer];
+    nextPlayer();
+
+    //Check if player won the game
 });
 
