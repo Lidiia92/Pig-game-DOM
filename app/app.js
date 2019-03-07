@@ -9,20 +9,40 @@ GAME RULES:
 
 */
 
-let scores, roundScore, activePlayer, dice;
+let scores, roundScore, activePlayer;
 
 scores = [0, 0];
 roundScore = 0;
 activePlayer = 0;
 
-//Random number from 1 to 6
-dice = Math.floor(Math.random() * 6) + 1;
 
 //Current dice roll number
 const currentScore = document.querySelector(`#current-${activePlayer}`);
-currentScore.textContent = dice;
+//currentScore.textContent = dice;
 
 //Hiding dice img initialy on a page load
 const diceImg = document.querySelector('.dice');
 diceImg.style.display = 'none';
+
+//Setting scores, current scores to 0 for both players
+document.getElementById('score-0').textContent = '0';
+document.getElementById('score-1').textContent = '0';
+document.getElementById('current-0').textContent = '0';
+document.getElementById('current-1').textContent = '0';
+
+
+//Rolling the dice functionality
+
+const rollDiceButton = document.querySelector('.btn-roll');
+rollDiceButton.addEventListener('click', function() {
+
+    //1.Random num from 1 to 6
+    const dice = Math.floor(Math.random() * 6) + 1;
+
+    //2.Display the result
+    diceImg.style.display = 'block';
+    diceImg.src = `dice-${dice}.png`;
+
+    //3.Update the round score IF the rolled number was NOT a 1
+});
 
