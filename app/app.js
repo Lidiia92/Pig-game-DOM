@@ -83,22 +83,24 @@ rollDiceButton.addEventListener('click', function() {
 //Holding the score functioanlity 
 
 document.querySelector('.btn-hold').addEventListener('click', function(){
-    //Add CURRENT score to global score
 
-    scores[activePlayer] += roundScore;
-
-    //Update the UI
-    document.querySelector(`#score-${activePlayer}`).textContent = scores[activePlayer];
+    if(gamePlaying){
+        //Add CURRENT score to global score
+        scores[activePlayer] += roundScore;
     
-    //Check if player won the game
-    if (scores[activePlayer] >= 20) {
-        document.querySelector(`#name-${activePlayer}`).textContent = 'Winner!';
-        document.querySelector('.dice').style.display = "none";
-        document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
-        document.querySelector(`.player-${activePlayer}-panel`).classList.remove('active');
-        gamePlaying = false;
-    } else {
-        nextPlayer();
+        //Update the UI
+        document.querySelector(`#score-${activePlayer}`).textContent = scores[activePlayer];
+        
+        //Check if player won the game
+        if (scores[activePlayer] >= 20) {
+            document.querySelector(`#name-${activePlayer}`).textContent = 'Winner!';
+            document.querySelector('.dice').style.display = "none";
+            document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
+            document.querySelector(`.player-${activePlayer}-panel`).classList.remove('active');
+            gamePlaying = false;
+        } else {
+            nextPlayer();
+        }
     }
 
 });
