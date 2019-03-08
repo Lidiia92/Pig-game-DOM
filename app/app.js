@@ -26,6 +26,11 @@ function init() {
     document.getElementById('current-1').textContent = '0';
     document.querySelector(`#name-0`).textContent = 'Player 1';
     document.querySelector(`#name-1`).textContent = 'Player 1';
+    document.querySelector(`.player-0-panel`).classList.remove('winner');
+    document.querySelector(`.player-1-panel`).classList.remove('winner');
+    document.querySelector(`.player-0-panel`).classList.remove('active');
+    document.querySelector(`.player-1-panel`).classList.remove('active');
+    document.querySelector(`.player-0-panel`).classList.add('active');
 }
 
 init();
