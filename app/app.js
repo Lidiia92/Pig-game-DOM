@@ -9,12 +9,14 @@ GAME RULES:
 
 */
 
-let scores, roundScore, activePlayer;
+let scores, roundScore, activePlayer, gamePlaying;
 
 function init() {
     scores = [0, 0];
     activePlayer = 0;
     roundScore = 0;
+    gamePlaying = true;
+
     //Hiding dice img initialy on a page load
     const diceImg = document.querySelector('.dice');
     diceImg.style.display = 'none';
@@ -54,24 +56,27 @@ function nextPlayer () {
 const rollDiceButton = document.querySelector('.btn-roll');
 rollDiceButton.addEventListener('click', function() {
 
-    //1.Random num from 1 to 6
-    const dice = Math.floor(Math.random() * 6) + 1;
-
-    //2.Display the result
-    const diceImg = document.querySelector('.dice');
-    diceImg.style.display = 'block';
-    diceImg.src = `dice-${dice}.png`;
-
-    //3.Update the round score IF the rolled number was NOT a 1
-    if (dice !== 1) {
-        //Add score
-        roundScore +=dice; 
-        const currentScore = document.querySelector(`#current-${activePlayer}`);
-        currentScore.textContent = roundScore;
-    } else {
-        nextPlayer();
-
+    if(gamePlaying){
+        //1.Random num from 1 to 6
+        const dice = Math.floor(Math.random() * 6) + 1;
+    
+        //2.Display the result
+        const diceImg = document.querySelector('.dice');
+        diceImg.style.display = 'block';
+        diceImg.src = `dice-${dice}.png`;
+    
+        //3.Update the round score IF the rolled number was NOT a 1
+        if (dice !== 1) {
+            //Add score
+            roundScore +=dice; 
+            const currentScore = document.querySelector(`#current-${activePlayer}`);
+            currentScore.textContent = roundScore;
+        } else {
+            nextPlayer();
+    
+        }
     }
+
 });
 
 
@@ -91,6 +96,7 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
         document.querySelector('.dice').style.display = "none";
         document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
         document.querySelector(`.player-${activePlayer}-panel`).classList.remove('active');
+        gamePlaying = false;
     } else {
         nextPlayer();
     }
