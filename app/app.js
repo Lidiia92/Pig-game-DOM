@@ -11,20 +11,25 @@ GAME RULES:
 
 let scores, roundScore, activePlayer;
 
-scores = [0, 0];
-roundScore = 0;
-activePlayer = 0;
+function init() {
+    scores = [0, 0];
+    activePlayer = 0;
+    roundScore = 0;
+    //Hiding dice img initialy on a page load
+    const diceImg = document.querySelector('.dice');
+    diceImg.style.display = 'none';
+    
+    //Setting scores, current scores to 0 for both players
+    document.getElementById('score-0').textContent = '0';
+    document.getElementById('score-1').textContent = '0';
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+    document.querySelector(`#name-0`).textContent = 'Player 1';
+    document.querySelector(`#name-1`).textContent = 'Player 1';
+}
 
+init();
 
-//Hiding dice img initialy on a page load
-const diceImg = document.querySelector('.dice');
-diceImg.style.display = 'none';
-
-//Setting scores, current scores to 0 for both players
-document.getElementById('score-0').textContent = '0';
-document.getElementById('score-1').textContent = '0';
-document.getElementById('current-0').textContent = '0';
-document.getElementById('current-1').textContent = '0';
 
 
 function nextPlayer () {
@@ -35,6 +40,7 @@ function nextPlayer () {
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
     roundScore = 0;
     document.querySelector(`.player-${activePlayer}-panel`).classList.add('active');
+    const diceImg = document.querySelector('.dice');
     diceImg.style.display = 'none';
 }
 
@@ -47,6 +53,7 @@ rollDiceButton.addEventListener('click', function() {
     const dice = Math.floor(Math.random() * 6) + 1;
 
     //2.Display the result
+    const diceImg = document.querySelector('.dice');
     diceImg.style.display = 'block';
     diceImg.src = `dice-${dice}.png`;
 
@@ -84,4 +91,10 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
     }
 
 });
+
+
+//New Game functionality
+document.querySelector('.btn-new').addEventListener('click', init);
+
+
 
